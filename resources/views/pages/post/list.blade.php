@@ -23,7 +23,7 @@
         </div>
         <div class="text-info bg-dark info">
             <h3>category: <a href="/post/{{$post->category_id}}/list/cat">{{$post->category->title}}</a></h3>
-            <h3>Author: <a href="/post/{{$post->user_id}}/list/cat">{{$post->user->name}}</a></h3>
+            <h3>Author: <a href="/post/{{$post->user_id}}/list/user">{{$post->user->name}}</a></h3>
         </div>
         <div class="text-primary info">
          <p>tags:

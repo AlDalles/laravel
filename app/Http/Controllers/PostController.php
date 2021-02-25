@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use App\Models\Tag;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -12,23 +14,32 @@ class PostController extends Controller
 {
     public function index(){
         $pages = \App\Models\Post::paginate(3);
-        $link_main="";
-        return view('pages/post/list',compact('pages','link_main'));
+
+        return view('pages/post/list',compact('pages'));
+
+
     }
 
     public function posts_tag($id){
-        $link_main="/post/{$id}/list/tag";
+        //$link_main="/post/{$id}/list/tag";
         $pages = Tag::find($id)->posts()->paginate(3);
 
-        return view('pages/post/list',compact('pages',"link_main"));
+        return view('pages/post/list',compact('pages'));
     }
 
 
     public function posts_category($id){
-        $pages=Post::where("category_id",$id)->paginate(3);
-        $link_main="/post/{$id}/list/cat";
+        $pages=\App\Models\Post::where("category_id",$id)->paginate(3);
 
-        return view('pages/post/list',compact('pages',"link_main"));
+
+        return view('pages/post/list',compact('pages'));
+    }
+
+    public function post_user($id){
+        $pages=\App\Models\Post::where("user_id",$id)->paginate(3);
+
+
+        return view('pages/post/list',compact('pages',));
     }
 
     public function create(){

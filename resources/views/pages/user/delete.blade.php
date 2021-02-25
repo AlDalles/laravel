@@ -10,7 +10,7 @@
             @forelse($users as $user)
 
 
-                <option value={{ $user->id }}>{{ $user->title }}</option>
+                <option value={{ $user->id }}>{{ $user->name }}</option>
 
             @empty
                 <p>no users</p>
@@ -19,7 +19,5 @@
 
 
         </select> <br><input name ="submit" type="submit" value="delete users"></form>
-    @push('scripts')
-        <script src="/example.js"></script>
-    @endpush
+
 @endsection

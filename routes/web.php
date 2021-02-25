@@ -57,7 +57,7 @@ Route::post('/tag/update',[\App\Http\Controllers\TagController::class , 'edit1']
 Route::get('/post/list',[\App\Http\Controllers\PostController::class , 'index']);   //вывод постов
 Route::get('/post/{id}/list/tag',[\App\Http\Controllers\PostController::class , 'posts_tag']);//ввывод постов по тегу
 Route::get('/post/{id}/list/cat',[\App\Http\Controllers\PostController::class , 'posts_category']); //вывод постов по категории
-//Route::get('/post/list/cat/',[\App\Http\Controllers\PostController::class , 'posts_category']); //вывод постов по категории
+Route::get('/post/{id}/list/user',[\App\Http\Controllers\PostController::class , 'post_user']); //вывод постов по категории
 Route::get('/post/create',[\App\Http\Controllers\PostController::class , 'create']);//создание нового поста
 Route::post('/post/create',[\App\Http\Controllers\PostController::class , 'store']);//сохранение поста после добавления
 Route::get('/post/{id}/edit',[\App\Http\Controllers\PostController::class , 'edit']);//передача поста на редактирование
