@@ -222,9 +222,10 @@ class PostController extends Controller
 
     public function searchResult(){
 
-       // $pages=Post::whereHas('tags',function (Builder $query))
+       $pages=Tag::find($_POST['tag_id'])->posts()->where('user_id',$_POST['user_id'])->where('category_id',$_POST['category_id'])->paginate(3);
 
-        $pages = User::find($_POST['user_id'])->posts()->where('category_id',$_POST['category_id'])->paginate(3);
+
+
         return view('pages/post/list',compact('pages'));
 
 

@@ -32,14 +32,9 @@
         </select>
 
         <div>
+            выберите таг <select name="tag_id" size="5">
             @foreach($tags as $tag)
-                <div class="input-group">
-
-
-                        <input class = "input-checkbox" type="checkbox" name="tags_id[]" checked value={{$tag->id}}>{{$tag->title}}
-
-
-                </div>
+                <option  value={{ $tag->id }}>{{ $tag->title }}</option>
             @endforeach
         </div>
 

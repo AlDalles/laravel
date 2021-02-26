@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $users = \App\Models\User::factory(20)->create();
         \App\Models\Category::factory()->create(['id'=>0,'title'=>'uncategories','slug'=>'speshial']);
         $categories = \App\Models\Category::factory(25)->create();
-        $tags=\App\Models\Tag::factory(100)->create();
+        $tags=\App\Models\Tag::factory(10)->create();
 
 
        \App\Models\Post::factory(1000)->make(['category_id'=>null,'user_id'=>null])->each(function($post) use ($categories,$users,$tags){
