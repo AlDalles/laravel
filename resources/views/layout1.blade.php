@@ -131,6 +131,8 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdown02">
                         <li><a class="dropdown-item" href="/post/list">Список постов</a></li>
                         <li><a class="dropdown-item" href="/post/create">Добавить пост</a></li>
+                        <li><a class="dropdown-item" href="/user/category">Поиск от автора</a></li>
+                        <li><a class="dropdown-item" href="/category/user">поиск от категории</a></li>
 
                     </ul>
                 </li>
@@ -141,6 +143,7 @@
                         <li><a class="dropdown-item" href="/user/delete1">Удалить пользователей</a></li>
                         <li><a class="dropdown-item" href="/user/create">Добавить пользователя</a></li>
                         <li><a class="dropdown-item" href="/user/update1">Изменить пользователя</a></li>
+
 
                     </ul>
                 </li>

@@ -63,7 +63,13 @@ Route::post('/post/create',[\App\Http\Controllers\PostController::class , 'store
 Route::get('/post/{id}/edit',[\App\Http\Controllers\PostController::class , 'edit']);//передача поста на редактирование
 Route::post('/post/{id}/edit',[\App\Http\Controllers\PostController::class , 'update']);// редактирование поста
 Route::get('/post/{id}/delete',[\App\Http\Controllers\PostController::class , 'destroy']); //  удаление поста из таблицы
+Route::get('/user/category',[\App\Http\Controllers\PostController::class , 'postUserCategoryViewUsers']);//поиск от автора pages/post/select-category
+Route::post('/user/category',[\App\Http\Controllers\PostController::class , 'postUserCategoryViewCategories']);//поиск от автора
+Route::post('/user/category/index',[\App\Http\Controllers\PostController::class , 'postUserCategoryView']);//поиск от автора
 
+Route::get('/category/user',[\App\Http\Controllers\PostController::class , 'postCategoryUserViewCategory']);//поиск от категории
+Route::post('/category/user',[\App\Http\Controllers\PostController::class , 'postCategoryUserViewUsers']);//поиск от категории
+Route::post('/category/user/index',[\App\Http\Controllers\PostController::class , 'postCategoryUserView']);//поиск от категории
 
 Route::get('/user/list',[\App\Http\Controllers\UserController::class , 'index']);   //вывод таблицы юзеров
 Route::get('/user/create',[\App\Http\Controllers\UserController::class , 'create']); // создание юзера из пункта меню
@@ -80,3 +86,4 @@ Route::post('/user/{id}/update',[\App\Http\Controllers\UserController::class , '
 
 Route::get('/user/update1',[\App\Http\Controllers\UserController::class , 'edit_select']); // вывод списка юзеров для редактирования из пункта меню
 Route::post('/user/update',[\App\Http\Controllers\UserController::class , 'edit1']); // редактирование юзеров после выбора из пункта меню
+

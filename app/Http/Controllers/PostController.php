@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Post;
 use App\Models\User;
 use App\Models\Tag;
 use App\Models\Category;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -144,4 +146,68 @@ class PostController extends Controller
         return new RedirectResponse('/post/list');
 
     }
+    public function postUserCategoryViewUsers()
+    {
+        $items= User::all();
+        $method="post";
+        $link="/user/category";
+        $name="user_id";
+        $nametitle="name";
+        return view('pages/post/select-user',compact('items','link','name','nametitle','method'));
+
+
+    }
+
+    public function postUserCategoryViewCategories()
+    {
+        $link="/user/category/index";
+        $method="post";
+        $name="category_id";
+        $nametitle="title";
+        $id=$_POST['user_id'];
+        $items=Category::find(Post::where('user_id',$id)->get()->pluck('category_id'));
+        if($items->count()>0){
+         return view('pages/post/select-category',compact('items','link','name','nametitle','id','method'));}
+        else return new RedirectResponse($_SERVER['HTTP_REFERER']);
+
+
+    }
+    public function postUserCategoryView(){
+
+        $pages = User::find($_POST['id'])->posts()->where('category_id',$_POST['category_id'])->paginate(3);
+        return view('pages/post/list',compact('pages'));
+    }
+
+    public function postCategoryUserViewCategory()
+    {
+        $items = Category::all();
+        $method="post";
+        $link="/category/user";
+        $name="category_id";
+        $nametitle="title";
+        return view('pages/post/select-category',compact('items','link','name','nametitle','method'));
+
+
+    }
+
+    public function postCategoryUserViewUsers()
+    {
+        $link="/category/user/index";
+        $method="post";
+        $name="user_id";
+        $nametitle="name";
+        $id=$_POST['category_id'];
+        $category_id=$_POST['id'];
+        $items=User::find(Post::where('user_id',$id)->get()->pluck('category_id'));
+        if($items->count()>0) {
+            return view('pages/post/select-user', compact('items', 'link', 'name', 'nametitle', 'id', 'method'));
+        }
+        else return new RedirectResponse($_SERVER['HTTP_REFERER']);
+    }
+    public function postCategoryUserView(){
+
+        $pages = Category::find($_POST['id'])->posts()->where('user_id',$_POST['user_id'])->paginate(3);
+        return view('pages/post/list',compact('pages'));
+    }
+
 }
