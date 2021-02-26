@@ -55,9 +55,9 @@ Route::get('/tag/update1',[\App\Http\Controllers\TagController::class , 'edit_se
 Route::post('/tag/update',[\App\Http\Controllers\TagController::class , 'edit1']); // редактирование тегов после выбора из пункта меню
 
 Route::get('/post/list',[\App\Http\Controllers\PostController::class , 'index']);   //вывод постов
-Route::get('/post/{id}/list/tag',[\App\Http\Controllers\PostController::class , 'posts_tag']);//ввывод постов по тегу
-Route::get('/post/{id}/list/cat',[\App\Http\Controllers\PostController::class , 'posts_category']); //вывод постов по категории
-Route::get('/post/{id}/list/user',[\App\Http\Controllers\PostController::class , 'post_user']); //вывод постов по категории
+Route::get('/tag/{id}',[\App\Http\Controllers\PostController::class , 'posts_tag']);//ввывод постов по тегу
+Route::get('/category/{id}',[\App\Http\Controllers\PostController::class , 'posts_category']); //вывод постов по категории
+Route::get('/author/{id}',[\App\Http\Controllers\PostController::class , 'post_user']); //вывод постов по юзеру
 Route::get('/post/create',[\App\Http\Controllers\PostController::class , 'create']);//создание нового поста
 Route::post('/post/create',[\App\Http\Controllers\PostController::class , 'store']);//сохранение поста после добавления
 Route::get('/post/{id}/edit',[\App\Http\Controllers\PostController::class , 'edit']);//передача поста на редактирование
