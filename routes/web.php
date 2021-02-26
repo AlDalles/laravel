@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 
 Route::get('/',[\App\Http\Controllers\PostController::class , 'index']);
+Route::get('/search',[\App\Http\Controllers\PostController::class , 'search']);
+Route::post('/search',[\App\Http\Controllers\PostController::class , 'searchResult']);
 
 Route::get('/category/list',[\App\Http\Controllers\CategoryController::class,'index']);   //вывод таблицы категорий
 Route::get('/category/create',[\App\Http\Controllers\CategoryController::class , 'create']); // создание категории из пункта меню

@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Tag;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -208,6 +209,25 @@ class PostController extends Controller
 
         $pages = Category::find($_POST['id'])->posts()->where('user_id',$_POST['user_id'])->paginate(3);
         return view('pages/post/list',compact('pages'));
+    }
+
+    public function search(){
+        $users=User::all();
+        $categories=Category::all();
+        $tags=Tag::all();
+        return view('pages/post/search',compact('categories','tags','users'));
+
+
+    }
+
+    public function searchResult(){
+
+       // $pages=Post::whereHas('tags',function (Builder $query))
+
+        $pages = User::find($_POST['user_id'])->posts()->where('category_id',$_POST['category_id'])->paginate(3);
+        return view('pages/post/list',compact('pages'));
+
+
     }
 
 }

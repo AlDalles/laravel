@@ -107,6 +107,9 @@
                     <a class="nav-link" aria-current="page" href="/">Home</a>
                 </li>
 
+                <li class="nav-item active">
+                    <a class="nav-link" aria-current="page" href="/search">Поиск</a>
+                </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Категории</a>
