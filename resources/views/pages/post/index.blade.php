@@ -7,7 +7,7 @@
 @section('content')
 
 
-  
+
     <h1 class = "info, info1">pages111</h1>
     @if(isset($_SESSION['message']))
         <div class="alert alert-{{$_SESSION['message']['status']}}" role="alert">
