@@ -31,12 +31,28 @@
             padding-top: 60px;
 
         }
+        .chackbox {
+            display: flex;
+            flex-wrap: wrap;
+
+        }
+        .input-group {
+            width: 33%;
+        }
+        .container {
+            max-width: 1900px;
+            margin: 0;
+        }
+        .submit {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
             body {
-                max-width: 1550px;
                 margin:auto;
                 color: #fff;
                 background-color: rgb(71, 163, 218);

@@ -26,6 +26,7 @@
                     @endforeach
 
                 @endif
+                <h2 class="col-4,info1 title">Slug</h2>
                 <input name="slug"  class ="input-titel display-form" value="{{$_SESSION['data']['slug']?? $post->slug}}">
                 @if(isset($_SESSION['errors']['slug']))
                     @foreach($_SESSION['errors']['slug'] as $error)
@@ -34,6 +35,7 @@
                         </div>
                     @endforeach
                 @endif
+                <h2 class="col-4,info1 title">Post</h2>
                 <textarea name="body" class="form-textarea display-form">{{$_SESSION['data']['body']?? $post->body}}</textarea>
                 @if(isset($_SESSION['errors']['body']))
                     @foreach($_SESSION['errors']['body'] as $error)
@@ -68,22 +70,22 @@
 
                 @endif
 
-                <select name="user_id" class ="select-form">
-                    @if(isset($_SESSION['data']['user_id']))
-                        {{$select_id=$_SESSION['data']['user_id']}}
-                    @else {{$select_id=$post->user_id}}
-                    @endif
+                    <select name="user_id" class ="select-form">
+                        @if(isset($_SESSION['data']['user_id']))
+                            {{$select_id=$_SESSION['data']['user_id']}}
+                        @else {{$select_id=$post->user_id}}
+                        @endif
 
 
-                    @foreach($users as $userforID)
+                        @foreach($users as $userforID)
 
 
 
-                        <option @if ($userforID->id==$select_id): selected @endif value="{{$userforID->id}}">{{$userforID->name}}</option>
+                            <option @if ($userforID->id==$select_id): selected @endif value="{{$userforID->id}}">{{$userforID->name}}</option>
 
 
-                    @endforeach
-                </select>
+                        @endforeach
+                    </select>
                 @if (isset($_SESSION['errors']['user_id']))
                     @foreach($_SESSION['errors']['user_id'] as $error)
 
@@ -97,7 +99,7 @@
 
 
 
-                <div>
+                <div class="chackbox">
                     @foreach($tags as $tag)
                         <div class="input-group">
                          @if(isset($_SESSION['data']['tags_id']))
@@ -109,7 +111,8 @@
                         </div>
                     @endforeach
                 </div>
-                        <input class = "input-checkbox submit-save" type="submit" name="save" value="Save">
+                <div class="submit">
+                    <input class = "input-checkbox submit-save" type="submit" name="save" value="Save">
                 </div>
         @if (isset($_SESSION['errors']['tags_id']))
             @foreach($_SESSION['errors']['tags_id'] as $error)

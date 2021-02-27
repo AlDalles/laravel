@@ -35,7 +35,11 @@
         <p class = "info">{{$post->body}}</p>
         </br>
     @endforeach
-    {{ $pages->links() }}
-   {{-- @include('paginator')--}}
+   <div class="page">
+       {{ $pages->links() }}
+   </div>
+
+
+    @include('paginator')
 
 @endsection
