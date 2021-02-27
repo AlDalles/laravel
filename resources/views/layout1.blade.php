@@ -108,7 +108,7 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" aria-current="page" href="/search">Поиск</a>
+                    <a class="nav-link" aria-current="page" href="/searchform">Поиск</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -137,6 +137,7 @@
                         <li><a class="dropdown-item" href="/user/category">Поиск от автора</a></li>
                         <li><a class="dropdown-item" href="/category/user">поиск от категории</a></li>
 
+
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -162,8 +163,9 @@
 <main class="container">
 
     <div class="info1">
-        @yield('content')</div>
         @yield('paginator')
+        @yield('content')</div>
+
 
 
 </main><!-- /.container -->

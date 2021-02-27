@@ -19,8 +19,10 @@ Route::get('/', function () {
 
 
 Route::get('/',[\App\Http\Controllers\PostController::class , 'index']);
-Route::get('/search',[\App\Http\Controllers\PostController::class , 'search']);
-Route::post('/search',[\App\Http\Controllers\PostController::class , 'searchResult']);
+Route::get('/searchform',[\App\Http\Controllers\PostController::class , 'search']);
+Route::get('/searchIndex',[\App\Http\Controllers\PostController::class , 'searchResult']);
+Route::post('/searchIndex',[\App\Http\Controllers\PostController::class , 'searchResult']);
+
 
 Route::get('/category/list',[\App\Http\Controllers\CategoryController::class,'index']);   //вывод таблицы категорий
 Route::get('/category/create',[\App\Http\Controllers\CategoryController::class , 'create']); // создание категории из пункта меню
@@ -58,7 +60,7 @@ Route::post('/tag/update',[\App\Http\Controllers\TagController::class , 'edit1']
 
 Route::get('/post/list',[\App\Http\Controllers\PostController::class , 'index']);   //вывод постов
 Route::get('/tag/{id}',[\App\Http\Controllers\PostController::class , 'posts_tag']);//ввывод постов по тегу
-Route::get('/category/{id}',[\App\Http\Controllers\PostController::class , 'posts_category']); //вывод постов по категории
+Route::get('/category/{id}',[\App\Http\Controllers\PostController::class , 'posts_category'])->where('id', '[0-9]+'); //вывод постов по категории
 Route::get('/author/{id}',[\App\Http\Controllers\PostController::class , 'post_user']); //вывод постов по юзеру
 Route::get('/post/create',[\App\Http\Controllers\PostController::class , 'create']);//создание нового поста
 Route::post('/post/create',[\App\Http\Controllers\PostController::class , 'store']);//сохранение поста после добавления

@@ -7,7 +7,8 @@
     <h1>Category Update </h1>
 
 <form action="/category/update" method="post">
-        <select name = id size="1">
+    @csrf
+    <select name = id size="1">
 
 
 

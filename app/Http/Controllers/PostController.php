@@ -182,6 +182,7 @@ class PostController extends Controller
     public function postCategoryUserViewCategory()
     {
         $items = Category::all();
+        //dd($items);
         $method="post";
         $link="/category/user";
         $name="category_id";
@@ -220,13 +221,30 @@ class PostController extends Controller
 
     }
 
+
     public function searchResult(){
 
-       $pages=Tag::find($_POST['tag_id'])->posts()->where('user_id',$_POST['user_id'])->where('category_id',$_POST['category_id'])->paginate(3);
+
+        $data = request()->all();
+        $validator = validator()->make($data, [
+            'category_id'=>['required','exists:categories,id'],
+            'tag_id'=>['required','exists:tags,id'],
+            'user_id'=>['required','exists:users,id']
+
+
+        ]);
+        $error = $validator->errors();
+        if(count($error)>0){
+            $_SESSION['errors'] = $error->toArray();
+            $_SESSION['data'] = $data;
+            return new RedirectResponse($_SERVER['HTTP_REFERER']);
+        }
 
 
 
-        return view('pages/post/list',compact('pages'));
+        $pages=Tag::find($_POST['tag_id']??$_GET['tag_id'])->posts()->where('user_id',$_POST['user_id']??$_GET['user_id'])->where('category_id',$_POST['category_id']??$_GET['category_id'])->paginate(3);
+
+        return view("pages/post/index",compact('pages'));
 
 
     }

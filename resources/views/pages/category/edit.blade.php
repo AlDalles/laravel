@@ -10,7 +10,7 @@
 
     <h1>Categories </h1>
 
-{{----}}
+
 @if(isset($_SESSION['mark']))
     <form action="/category/{{$category->id}}/update" class="form-text" method="post">
 @else <form class="form-text" method="post">
