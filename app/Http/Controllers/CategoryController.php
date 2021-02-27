@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index(){
         $pages = Category::paginate(10);
        // $link_main="";
-        return view('pages/category/list',compact('pages','link_main'));
+        return view('pages/category/list',compact('pages'));
 
     }
 
