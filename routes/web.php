@@ -20,8 +20,9 @@ Route::get('/', function () {
 
 Route::get('/',[\App\Http\Controllers\PostController::class , 'index']);
 Route::get('/searchform',[\App\Http\Controllers\PostController::class , 'search']);
-Route::get('/searchIndex',[\App\Http\Controllers\PostController::class , 'searchResult']);
 Route::post('/searchIndex',[\App\Http\Controllers\PostController::class , 'searchResult']);
+Route::get('/searchIndex',[\App\Http\Controllers\PostController::class , 'searchResult']);
+//Route::get('/searchIndex',function (){return view('/pages/post/index');});
 
 
 Route::get('/category/list',[\App\Http\Controllers\CategoryController::class,'index']);   //вывод таблицы категорий

@@ -49,25 +49,44 @@
 
         @endif
 
-        <div>
-            выберите теги <select name="tag_id" size="5">
+        {{--<div class="chackbox">
             @foreach($tags as $tag)
+                <div class="input-group">
+                    @if(isset($_SESSION['data']['tags_id']))
+                        <input @if(array_search($tag->id,$_SESSION['data']['tags_id'])!==false) checked @endif class = "input-checkbox" type="checkbox" name="tags_id[]" value={{$tag->id}}>{{$tag->title}}
+                    @else
+                        <input  class = "input-checkbox" type="checkbox" name="tags_id[]" value={{$tag->id}}>{{$tag->title}}
+                    @endif
+
+                </div>
+            @endforeach
+        </div>--}}
+
+        <select name="tag_id" size="5">
+
+            @forelse($tags as $tag)
                 <option  value={{ $tag->id }}>{{ $tag->title }}</option>
-            @endforeach
-                @if (isset($_SESSION['errors']['tag_id']))
-                    @foreach($_SESSION['errors']['tag_id'] as $error)
 
-                        <div class="alert alert-warning" role="alert">
-                            {{$error}}
-                        </div>
+            @empty
+                <p>no tags</p>
+            @endforelse
+        </select>
+
+        @if (isset($_SESSION['errors']['tags_id']))
+            @foreach($_SESSION['errors']['tags_id'] as $error)
+
+                <div class="alert alert-warning" role="alert">
+                    {{$error}}
+                </div>
             @endforeach
 
-            @endif
+        @endif
+
+
+
+        <div class="submit">
+            <input class = "input-checkbox submit-save" type="submit" name="find" value="Find">
         </div>
-
-
-
-        <input name ="update" type="submit" value="search"><br>
     </form>
 
     @php unset($_SESSION['errors']);

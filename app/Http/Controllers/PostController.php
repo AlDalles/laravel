@@ -228,7 +228,7 @@ class PostController extends Controller
         $data = request()->all();
         $validator = validator()->make($data, [
             'category_id'=>['required','exists:categories,id'],
-            'tag_id'=>['required','exists:tags,id'],
+            'tag_id'=>['required'],
             'user_id'=>['required','exists:users,id']
 
 
@@ -238,12 +238,14 @@ class PostController extends Controller
             $_SESSION['errors'] = $error->toArray();
             $_SESSION['data'] = $data;
             return new RedirectResponse($_SERVER['HTTP_REFERER']);
+
         }
 
 
-
-        $pages=Tag::find($_POST['tag_id']??$_GET['tag_id'])->posts()->where('user_id',$_POST['user_id']??$_GET['user_id'])->where('category_id',$_POST['category_id']??$_GET['category_id'])->paginate(3);
-
+       $pages=Tag::find($_POST['tag_id']??$_GET['tag_id'])->posts()->where('user_id',$_POST['user_id']??$_GET['user_id'])->where('category_id',$_POST['category_id']??$_GET['category_id'])->paginate(3);
+        /*$posts = Post::where('user_id',$_POST['user_id']??$_GET['user_id'])->where('category_id',$_POST['category_id']??$_GET['category_id'])->whereHas('tags', function (Builder $query) {
+            $query->whereIn('id', $_POST['tags_id']);
+        })->get()->paginate(3);*/
         return view("pages/post/index",compact('pages'));
 
 
