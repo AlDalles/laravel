@@ -161,23 +161,34 @@ class PostController extends Controller
 
     public function postUserCategoryViewCategories()
     {
-        $link="/user/category/index";
+
+        $link="/user/category/select";
         $method="post";
         $name="category_id";
         $nametitle="title";
         $id=$_POST['user_id'];
         $items=Category::find(Post::where('user_id',$id)->get()->pluck('category_id'));
+
         if($items->count()>0){
          return view('pages/post/select-category',compact('items','link','name','nametitle','id','method'));}
         else return new RedirectResponse($_SERVER['HTTP_REFERER']);
 
 
     }
-    public function postUserCategoryView(){
+    public function postUserCategoryRedirectString()
+    {
+        $data = request()->all();
+        return new RedirectResponse("/user/".$data['id']."/category/".$data['category_id']);
 
-        $pages = User::find($_POST['id'])->posts()->where('category_id',$_POST['category_id'])->paginate(3);
+    }
+
+    public function postUserCategoryView(User $user,Category $category){
+
+        $pages = User::find($user->id)->posts()->where('category_id',$category->id)->paginate(3);
         return view('pages/post/list',compact('pages'));
     }
+
+
 
     public function postCategoryUserViewCategory()
     {
@@ -206,9 +217,17 @@ class PostController extends Controller
         }
         else return new RedirectResponse($_SERVER['HTTP_REFERER']);
     }
-    public function postCategoryUserView(){
 
-        $pages = Category::find($_POST['id'])->posts()->where('user_id',$_POST['user_id'])->paginate(3);
+    public function postCategoryUserRedirectString()
+    {
+        $data = request()->all();
+        return new RedirectResponse("/user/".$data['user_id']."/category/".$data['id']);
+
+    }
+
+    public function postCategoryUserView(User $user,Category $category){
+
+        $pages = User::find($user->id)->posts()->where('category_id',$category->id)->paginate(3);
         return view('pages/post/list',compact('pages'));
     }
 
@@ -220,12 +239,40 @@ class PostController extends Controller
 
 
     }
+public function redirectString()
+{
+    $data = request()->all();
+    $validator = validator()->make($data, [
+        'category_id'=>['required','exists:categories,id'],
+        'tag_id'=>['required'],
+        'user_id'=>['required','exists:users,id']
 
 
-    public function searchResult(){
+    ]);
+    $error = $validator->errors();
+    if(count($error)>0){
+        $_SESSION['errors'] = $error->toArray();
+        $_SESSION['data'] = $data;
+        return new RedirectResponse($_SERVER['HTTP_REFERER']);
+
+    }
+    return new RedirectResponse("/user/".$data['user_id']."/category/".$data['category_id']."/tag/".$data['tag_id']);
 
 
-        $data = request()->all();
+
+}
+
+    public function searchResult(User $user,Category $category,Tag $tag){
+
+        $pages=Post::where('category_id',$category->id)->where('user_id',$user->id)->whereHas('tags',function (\Illuminate\Database\Eloquent\Builder $query) use ($tag){
+            $query->where('tags.id',$tag->id);
+
+        })->paginate(3);
+      //  dd($pages);
+
+        return view("pages/post/index",compact('pages'));
+
+      /*  $data = request()->all();
         $validator = validator()->make($data, [
             'category_id'=>['required','exists:categories,id'],
             'tag_id'=>['required'],
@@ -241,11 +288,13 @@ class PostController extends Controller
 
         }
 
-
-       $pages=Tag::find($_POST['tag_id']??$_GET['tag_id'])->posts()->where('user_id',$_POST['user_id']??$_GET['user_id'])->where('category_id',$_POST['category_id']??$_GET['category_id'])->paginate(3);
+        //$pages=Tag::find($tag_id)->posts()->where('user_id',$user_id)->where('category_id',$category_id)->paginate(3);
+       //$pages=Tag::find($_POST['tag_id']??$_GET['tag_id'])->posts()->where('user_id',$_POST['user_id']??$_GET['user_id'])->where('category_id',$_POST['category_id']??$_GET['category_id'])->paginate(3);
         /*$posts = Post::where('user_id',$_POST['user_id']??$_GET['user_id'])->where('category_id',$_POST['category_id']??$_GET['category_id'])->whereHas('tags', function (Builder $query) {
             $query->whereIn('id', $_POST['tags_id']);
         })->get()->paginate(3);*/
+        /*echo "/author/{author}/category/{category}/tag/{tag}";*/
+
         return view("pages/post/index",compact('pages'));
 
 

@@ -8,7 +8,7 @@
 
     <h1> Search </h1>
 
-    <form action="/searchIndex" method="get">
+    <form action="" method="post">
         @csrf
         выберите автора<select name ="user_id" size="5">
 

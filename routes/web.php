@@ -20,9 +20,8 @@ Route::get('/', function () {
 
 Route::get('/',[\App\Http\Controllers\PostController::class , 'index']);
 Route::get('/searchform',[\App\Http\Controllers\PostController::class , 'search']);
-Route::post('/searchIndex',[\App\Http\Controllers\PostController::class , 'searchResult']);
-Route::get('/searchIndex',[\App\Http\Controllers\PostController::class , 'searchResult']);
-//Route::get('/searchIndex',function (){return view('/pages/post/index');});
+Route::get('/user/{user}/category/{category}/tag/{tag}',[\App\Http\Controllers\PostController::class , 'searchResult'])->name('findPosts');
+Route::post('/searchform',[\App\Http\Controllers\PostController::class , 'redirectString']);
 
 
 Route::get('/category/list',[\App\Http\Controllers\CategoryController::class,'index']);   //вывод таблицы категорий
@@ -68,13 +67,16 @@ Route::post('/post/create',[\App\Http\Controllers\PostController::class , 'store
 Route::get('/post/{id}/edit',[\App\Http\Controllers\PostController::class , 'edit']);//передача поста на редактирование
 Route::post('/post/{id}/edit',[\App\Http\Controllers\PostController::class , 'update']);// редактирование поста
 Route::get('/post/{id}/delete',[\App\Http\Controllers\PostController::class , 'destroy']); //  удаление поста из таблицы
-Route::get('/user/category',[\App\Http\Controllers\PostController::class , 'postUserCategoryViewUsers']);//поиск от автора pages/post/select-category
-Route::post('/user/category',[\App\Http\Controllers\PostController::class , 'postUserCategoryViewCategories']);//поиск от автора
-Route::post('/user/category/index',[\App\Http\Controllers\PostController::class , 'postUserCategoryView']);//поиск от автора
+
+
+Route::get('/user/category',[\App\Http\Controllers\PostController::class , 'postUserCategoryViewUsers']);//поиск от автора: Выбор автора
+Route::post('/user/category',[\App\Http\Controllers\PostController::class , 'postUserCategoryViewCategories']);//поиск от автора : выбираем категорию
+Route::post('/user/category/select',[\App\Http\Controllers\PostController::class , 'postUserCategoryRedirectString']);//поиск от автора: генерируем ссылку
+Route::get('/user/{user}/category/{category}',[\App\Http\Controllers\PostController::class , 'postUserCategoryView']);//поиск от автора: выводим результат
 
 Route::get('/category/user',[\App\Http\Controllers\PostController::class , 'postCategoryUserViewCategory']);//поиск от категории
 Route::post('/category/user',[\App\Http\Controllers\PostController::class , 'postCategoryUserViewUsers']);//поиск от категории
-Route::post('/category/user/index',[\App\Http\Controllers\PostController::class , 'postCategoryUserView']);//поиск от категории
+Route::post('/category/user/index',[\App\Http\Controllers\PostController::class , 'postCategoryUserRedirectString']);//поиск от категории
 
 Route::get('/user/list',[\App\Http\Controllers\UserController::class , 'index']);   //вывод таблицы юзеров
 Route::get('/user/create',[\App\Http\Controllers\UserController::class , 'create']); // создание юзера из пункта меню
